@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Datasets and generated artefacts (large, re-creatable)
+SoccerNetData/
+YoloDataset/
+Reduced_YoloDataset/
+reid_dataset/
+test_set/
+Predictions*/
+runs/
+log/
+*.mp4
+*.pth
+*.pth.tar*
+*.pt
+!weights/*.pt
+
+# Third-party course material, un-redacted originals and scratch files kept locally only
+_local_only/
+
+# Doc
+docs/
+
+# Dataset frames (SoccerNet) are not redistributed
+results/detector_training/train_batch*.jpg

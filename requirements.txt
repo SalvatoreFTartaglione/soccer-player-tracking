@@ -1,0 +1,23 @@
+# Install PyTorch first, matching your CUDA version (see README):
+#   pip install torch==2.2.2 torchvision==0.17.2 --index-url https://download.pytorch.org/whl/cu121
+#
+# Versions below are the ones this code was developed and tested with (Python 3.12).
+numpy>=1.26,<2          # TrackEval and torch 2.2 are not NumPy-2 ready
+pandas>=2.0
+scipy>=1.11
+PyYAML>=6.0
+opencv-python>=4.8
+matplotlib>=3.7
+huggingface_hub     # dataset download (only needed by `prepare-data --download`)
+tqdm
+
+ultralytics==8.3.240    # YOLO11
+boxmot==16.0.1          # BoT-SORT + ReID backends
+trackeval @ git+https://github.com/JonathonLuiten/TrackEval.git   # HOTA metric
+
+# Dev
+pytest
+ruff
+
+# Optional, only to re-train the ReID model:
+#   pip install git+https://github.com/KaiyangZhou/deep-person-reid.git

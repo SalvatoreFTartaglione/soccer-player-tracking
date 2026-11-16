@@ -1,0 +1,20 @@
+# Detector fine-tuning hyper-parameters: the exact setup of the released run
+# (results/detector_training/args.yaml, trained on Google Colab with Ultralytics 8.3.242).
+# Ultralytics keys not listed here use their defaults.
+model: yolo11l.pt   # COCO-pretrained initialisation (downloaded automatically)
+imgsz: 1920
+epochs: 50          # the released run logged 7 epochs before it was stopped (metrics had saturated)
+patience: 12
+batch: 2
+freeze: 10          # freeze the 10 backbone layers, train neck + head
+optimizer: AdamW
+lr0: 0.0001
+lrf: 0.01
+weight_decay: 0.0005
+warmup_epochs: 3.0
+box: 7.5            # localisation matters more than classification (single class) for tracking IoU
+cls: 0.5
+seed: 0
+deterministic: true
+val: true
+plots: true

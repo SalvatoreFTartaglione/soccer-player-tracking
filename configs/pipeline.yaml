@@ -1,0 +1,28 @@
+# End-to-end inference pipeline. Relative paths are resolved from the directory you run the command in
+# (the repository root).
+team_id: 27            # used in the output file names: tracking_<video>_27.txt
+device: auto           # auto | cpu | 0 | cuda:0
+save_raw: true         # also keep the un-processed tracker output in <out>/raw (useful for ablations)
+
+detector:
+  weights: weights/yolo11l_soccer.pt
+  imgsz: 1920
+  conf: 0.20           # low on purpose: far-away / motion-blurred players have low scores
+  iou: 0.65            # NMS threshold, high enough to keep players that overlap in a tackle
+
+reid:
+  weights: weights/osnet_ain_x1_0_soccer.pt   # BoxMOT infers the architecture from the file name
+
+tracker:
+  config: configs/botsort_soccer.yaml
+
+postprocess:           # see soccer_tracker/postprocess.py
+  stitch: true
+  stitch_max_time_gap: 50
+  stitch_max_space_dist: 150
+  stitch_max_speed: 20
+  stitch_velocity_window: 5
+  interpolate: true
+  interp_max_gap: 10
+  smooth_sigma: 2.0
+  min_track_len: 50

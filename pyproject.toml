@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "soccer-tracker"
+version = "1.0.0"
+description = "Player detection, multi-object tracking (BoT-SORT + fine-tuned OSNet ReID) and ROI behaviour analysis for broadcast soccer video"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.26,<2",
+    "pandas>=2.0",
+    "scipy>=1.11",
+    "PyYAML>=6.0",
+    "opencv-python>=4.8",
+    "tqdm",
+]
+
+[project.optional-dependencies]
+# detection + tracking inference (install torch first, matching your CUDA version)
+inference = ["ultralytics==8.3.240", "boxmot==16.0.1"]
+# evaluation (HOTA via TrackEval)
+eval = ["trackeval @ git+https://github.com/JonathonLuiten/TrackEval.git"]
+# plotting and dataset download (Hugging Face mirror)
+extras = ["matplotlib", "huggingface_hub"]
+dev = ["pytest", "ruff"]
+
+[project.scripts]
+soccer-tracker = "soccer_tracker.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["soccer_tracker*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.ruff]
+line-length = 130
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["soccer_tracker", "helpers"]

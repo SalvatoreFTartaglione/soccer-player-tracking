@@ -1,0 +1,20 @@
+# BoT-SORT configuration tuned for broadcast soccer (BoxMOT 16.0.1).
+# Strategy: "high recall" detections + permissive association gates, relying on motion (Kalman + camera
+# motion compensation) and the fine-tuned OSNet ReID to keep identities consistent.
+tracker_type: botsort
+
+frame_rate: 25          # BoxMOT scales the buffer: int(frame_rate / 30 * track_buffer) = 125 frames (5 s)
+track_buffer: 150
+match_thresh: 0.99      # final gate of the association cost: very permissive, favours track continuity
+appearance_thresh: 0.90 # max cosine distance for ReID matching (teammates look alike -> do not reject on appearance)
+proximity_thresh: 0.70  # min IoU required before appearance is considered in the fused cost
+track_high_thresh: 0.35 # detections above this take part in the first (motion + appearance) association
+track_low_thresh: 0.20  # detections between low and high are used in the second, IoU-only association (BYTE)
+new_track_thresh: 0.35  # min confidence to spawn a new track
+with_reid: true
+cmc_method: sof         # camera motion compensation with sparse optical flow
+fuse_first_associate: true
+
+# Forwarded to BoxMOT's BaseTracker but NOT used by BotSort in boxmot 16.0.1 (kept for other versions):
+det_thresh: 0.20
+iou_threshold: 0.50
