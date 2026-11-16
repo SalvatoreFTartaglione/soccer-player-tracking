@@ -20,13 +20,13 @@ Contest score: `PTBS = HOTA@0.5 + nMAE`.
 
 ```mermaid
 flowchart LR
-    A[Frames 1920x1080] --> B[YOLO11-L<br/>person detector]
-    B -->|boxes + scores| C[BoT-SORT<br/>CMC: sparse optical flow<br/>ReID: fine-tuned OSNet-AIN]
-    C -->|raw tracks| D[Post-processing<br/>stitch → interpolate + smooth → filter → relabel]
-    D --> E[tracking_K_XX.txt]
-    D --> F[ROI counting<br/>feet point in rectangle]
-    F --> G[behavior_K_XX.txt]
-    E --> H[Evaluation<br/>HOTA@0.5 · nMAE · PTBS]
+    A["Frames 1920x1080"] --> B["YOLO11-L<br/>person detector"]
+    B -->|"boxes + scores"| C["BoT-SORT<br/>CMC: sparse optical flow<br/>ReID: fine-tuned OSNet-AIN"]
+    C -->|"raw tracks"| D["Post-processing<br/>stitch, interpolate + smooth,<br/>filter, relabel"]
+    D --> E["tracking_K_XX.txt"]
+    D --> F["ROI counting<br/>feet point in rectangle"]
+    F --> G["behavior_K_XX.txt"]
+    E --> H["Evaluation<br/>HOTA@0.5, nMAE, PTBS"]
     G --> H
 ```
 
